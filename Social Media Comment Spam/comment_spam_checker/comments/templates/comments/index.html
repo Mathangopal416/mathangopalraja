@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Comment Checker</title>
+    <link rel="stylesheet" href= "static 'comments/style.css' ">
+    <script src="static 'comments/script.js' " defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Social Media Spam Comment Section</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Check Spam</button>
+        </form>
+
+        <div class="comment-list">
+            {% for comment in comments %}
+            <div class="comment-card {{ comment.label|lower }}">
+                <img src="{{ comment.profile_pic }}" alt="Profile Pic">
+                <div>
+                    <strong>{{ comment.username }}</strong> <small>{{ comment.timestamp|date:"M d, H:i" }}</small><br>
+                    {{ comment.content }}
+                    <div class="label">{{ comment.label }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
